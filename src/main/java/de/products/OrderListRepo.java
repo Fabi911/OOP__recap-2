@@ -55,7 +55,7 @@ public class OrderListRepo {
     }
 
     public void setOrders(Order order) {
-        if(order != null && getOrderById(order.orderId()) == null){ // Überprüfung hier hinzugefügt
+        if(order != null && getOrderById(order.orderId()) == null){
             this.orders.add(order);
         }
     }

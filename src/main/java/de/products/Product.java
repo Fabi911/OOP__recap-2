@@ -5,7 +5,8 @@ public record Product(
         String brand,
         String type,
         String quantity,
-        String price
+        String price,
+        String id
 ) {
 
 }

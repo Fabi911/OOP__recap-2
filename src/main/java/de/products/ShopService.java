@@ -1,31 +1,31 @@
 package de.products;
 
-import java.security.Provider;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
-public class ShopService extends OrderListRepo{
+
+public class ShopService{
+    private ProductRepo productRepo=new ProductRepo();
+    private  OrderRepo orderRepo= new OrderMapRepo();
+
 
 
     public ShopService() {
 
     }
 
-    public void placeNewOrder(Order order, ProductRepo repo,OrderListRepo orderList) {
-        if(order != null && getOrderById(order.orderId()) == null){
-            List<Product> unavailableProducts = order.products().stream()
-                    .filter(product -> !repo.isProductAvailable(product.name()))
-                    .collect(Collectors.toList());
-
-            if(unavailableProducts.isEmpty()){
-                orderList.addOrder(order);
-            } else {
-                System.out.println("Die folgenden Produkte in der Bestellung sind nicht verfügbar: "
-                        + unavailableProducts.stream().map(Product::name).collect(Collectors.joining(", ")));
+    public Order placeNewOrder(List<String> productsIds) {
+        List<Product> products= new ArrayList<>();
+        for (String productId : productsIds) {
+            Product product = productRepo.getProductById(productId);
+            if (product == null) {
+                System.out.println("Product with id " + productId + " not found");
+                return null;
             }
+            products.add(product);
         }
+        Order newOrder=new Order(UUID.randomUUID().toString(), products);
+        return orderRepo.addNewOrder(newOrder);
     }
-
-
-
 }

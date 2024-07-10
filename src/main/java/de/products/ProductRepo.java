@@ -9,6 +9,9 @@ public class ProductRepo {
 
     public ProductRepo() {
         products = new ArrayList<>();
+        // Example products added for testing
+        addProduct(new Product("Laptop", "Dell", "Electronics", "1", "$1000", "123456"));
+        addProduct(new Product("Smartphone", "Apple", "Electronics", "1", "$999", "123457"));
     }
 
     public void addProduct(Product product) {
@@ -54,6 +57,15 @@ public class ProductRepo {
     }
     public boolean isProductAvailable(String productName) {
         return products.stream().anyMatch(product -> product.name().equals(productName));
+    }
+
+    public Product getProductById(String productId) {
+        for (Product product : products) {
+            if (product.id().equals(productId)) {
+                return product;
+            }
+        }
+        return null;
     }
 }
 

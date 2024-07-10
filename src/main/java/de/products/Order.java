@@ -8,10 +8,7 @@ import java.util.List;
 public record Order
         (
                 String orderId,
-                String customerId,
-                LocalDate orderDate,
-                List<Product> products,
-                BigDecimal totalAmount
+                List<Product> products
         ) {
 
 }
